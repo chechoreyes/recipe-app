@@ -461,3 +461,70 @@ Using a Schema
 
 * Download and run in local Swagget instance
 * Serve Swagger with API
+
+## Build User API
+
+### User API design
+
+User API:
+
+* User registration
+* Creating auth token
+* Viewing/updating profile
+
+Endpoints:
+
+* `user/create/`
+  * `POST` - Register a new user
+* `user/token/`
+  * `POST` - Create new token
+* `user/me/`
+  * `PUT` and `PATCH` - Update profile
+  * `GET` - View profile
+
+Create app `user`:
+
+```bash
+docker-compose run --rm app sh -c "python manage.py startapp user"
+```
+
+### Authentication
+
+* Basic
+  * Send username and password with each request
+* Token
+  * Use a token in the HTTP header
+  * Balance of simplicity and security
+  * Supported out of the box of DRF
+  * Well support by most clients
+* JSON Web Token (JWT)
+  * Use an access and refresh token
+* Session
+  * Use cookies
+
+How it works Token strategy:
+
+Create token (`POST` username/password) ➡️ Store token on client ➡️ Include token in HTTP headers
+
+Pros and cons
+
+* Pros
+  * Supported out of the box
+  * Simple to use
+  * Supported by all clients
+  * Avoid sending username/passoword each time
+* Cons
+  * Token need to be secure
+  * Requires database requests
+
+Logging out
+
+* Happends on the client side
+* Delete token
+
+Why no logout API?
+
+* Unrealiable
+  * No guarantee it will be called
+* Not useful on API
+

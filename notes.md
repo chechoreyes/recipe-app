@@ -528,3 +528,54 @@ Why no logout API?
   * No guarantee it will be called
 * Not useful on API
 
+## Recipe API
+
+### Recipe API Design
+
+Features:
+
+* Create
+* List
+* View Detail
+* Update
+* Delete
+
+Endpoints:
+
+* `/recipes/`
+  * `GET` - List all recipes
+  * `POST` - Create recipe
+* `/recipes/<recipe_id>/`
+  * `GET` - View details of recipe
+  * `PUT` or `PATCH` - Update recipe
+  * `DELETE` - Delete Recipe
+
+### `APIView` vs `ViewSets`
+
+What is a view?
+
+* Handles a request made to a URL
+* Django uses functions
+* DRF uses classes
+  * Reusable logic
+  * Override behaviour
+* DRF also supports decorators
+* `APIview` and `Viewsets` = DRF base classes
+
+`APIView`:
+
+* Focused around HTTP methods
+* Class methods for HTTP methods
+  *`GET, POST, PUT, PATCH, DELETE`
+* Provide flexibility over URLs and logic
+* Useful for non CRUD APIs
+  * Avoid for simple Create, Read, Update, Delete APIs
+  * Bespoke logic (eg: auth, jobs, external apis)
+
+``Viewsets`:
+
+* Focused around actions
+  * Retrieve, list, update, partial update, destroy
+* Map to Django models
+* Use Routers to generate URLs
+* Great for CRUD operations on models
